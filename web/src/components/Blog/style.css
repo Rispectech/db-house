@@ -1,0 +1,61 @@
+.materialItem {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease 0s;
+    box-shadow: 0px 14px 24px 10px rgba(0, 0, 0, 0.17);
+    margin: 0;
+}
+.materialItem a {
+    display: block;
+}
+.materialImg {
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height:268px;
+    transition: all 0.4s ease 0s;
+}
+.materialItem:hover .materialImg {
+    transform: scale(1.1);
+}
+.materialOverlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease 0s;
+}
+.materialOverlay::before {
+    clip-path: polygon(0 0%, 0% 100%, 100% 100%);
+    background: rgba(242, 103, 42, 0.5);
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: all ease 0.6s;
+}
+.materialOverlay.active::before {
+    background:rgba(35, 47, 62, 0.5);
+}
+.materialItem:hover .materialOverlay::before {
+    background:rgba(35, 47, 62, 0.5);
+}
+.materialInfo {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 18px;
+}
+.materialInfo h4 {
+    font-size: 32px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 10px;
+    width: 62%;
+}

@@ -1,0 +1,101 @@
+/* Designed by Pankaj Joshi */
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:992px) {
+    .hdrMenu > ul > li + li {
+        margin-left: 30px;
+    }
+    .hdrMenu {
+     margin-left: 25px;
+    }
+}
+
+@media (min-width:1500px) {
+    .container {
+        max-width: 1440px !important;
+    }
+}
+@media (min-width:1300px) {
+    .container {
+        max-width: 1300px !important;
+    }
+}
+
+@media (min-width:1199px) and (max-width:1300px) {
+    .container {
+        max-width: 1190px !important;
+    }
+
+}
+
+@media (min-width:992px) and (max-width:1199px) {
+
+}
+
+@media (min-width:768px) and (max-width:991px) {
+
+}
+
+@media (max-width:767px) {
+
+/* Padding Start */
+.py-80 {
+    padding: 40px 0;
+}
+.pt-80 {
+    padding-top: 40px;
+}
+
+/* Padding End */
+
+/* Main Heading */
+.mainHeading h2:after, 
+.mainHeading  h2:before{
+    display: none;
+}
+.mainHeading h2 {
+    font-size: 26px;
+    line-height: 30px;
+}
+.mainHeading h5 {
+    font-size: 15px;
+    padding-top: 10px;
+    line-height: 24px;
+    max-width: 100%;
+}
+
+
+/* Main Categories Setting */
+.categoryImg, .kitchWrkShpImg, .filtrItemCatImg {
+    min-height: 300px;
+}
+
+
+/* Home Page Commercial Section Start */
+.comerclInfo h4 {
+    font-size: 35px;
+}
+.comerclInfo p {
+    padding: 20px;
+}
+
+/* Marble Tabs Block */
+.marblesTabs li button.nav-link {  
+    font-size: 15px;
+    padding: 0 20px;
+    line-height: 38px;
+}
+.marblesTabs {
+margin-bottom: 15px;
+}
+
+
+
+}
+
+@media (min-width:320px) and (max-width:480px) {
+
+}
