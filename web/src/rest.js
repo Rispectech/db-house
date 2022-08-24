@@ -4,23 +4,24 @@ import { AddMerchant } from "./components";
 export const Rest = "http://localhost:12001/rest";
 // export const Rest = "http://165.22.213.2:12001/rest"
 
-const post = (url, payload, { errorMessage, jwt }) => {
+const post = async (url, payload, { errorMessage, jwt }) => {
   var appState = store.getState();
   let headers = { "Content-Type": "application/json" };
   if (appState?.user?.jwt) headers["Authorization"] = "Bearer " + appState.user.jwt;
   if (jwt) headers["Authorization"] = "Bearer " + jwt;
-  return fetch(Rest + url, {
+  console.log("post", payload, JSON.stringify(payload));
+  return await fetch(Rest + url, {
     method: "post",
     headers,
     body: JSON.stringify(payload),
   })
     .then(async (res) => {
       if (res.status === 401) throw new Error("Unauthorized!");
-      if (res.status !== 200)
-        throw new Error(errorMessage ? errorMessage : "Some Error Occured!");
+      if (res.status !== 200) throw new Error(res.statusText);
       return res;
     })
-    .then((res) => res.json());
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 };
 
 const postImage = (url, payload, { errorMessage, jwt }) => {
@@ -305,6 +306,7 @@ export let RestClient = {
     });
   },
   async getProductsByCategoryId(categoryId) {
+    console.log("getProductid is ", categoryId);
     return await post(
       "/categories/getProductsByCategory",
       { categoryId },
