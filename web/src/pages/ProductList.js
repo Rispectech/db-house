@@ -27,7 +27,7 @@ function ProductList() {
     const [loading, setLoading] = useState()
     const [category, setCategory] = useState(currentCategory[0])
     const [products, setProducts] = useState()
-    
+
     useEffect(() => {
         if (category) {
             setLoading(true)
@@ -39,7 +39,7 @@ function ProductList() {
     }, [category])
 
     const productDetails = (product) => {
-        navigate('/productdetail',{ state: {product} })
+        navigate('/productdetail', { state: { product } })
     }
 
     const selectRef2 = useRef();
@@ -50,8 +50,8 @@ function ProductList() {
     useEffect(() => {
         $(selectRef3.current).niceSelect();
     }, []);
-        
-    
+
+
     return (
         <section className="wrapper">
             <Header />
@@ -83,7 +83,7 @@ function ProductList() {
                 <div className="container">
                     <div className="NavCatInr">
                         <ul>
-                            {categories.map(cat =>  (
+                            {categories.map(cat => (
                                 <li>
                                     <div style={{ color: '#333', cursor: 'pointer', background: (cat.category === category?.category ? '#F2672A' : '#eee') }}
                                         onClick={() => {
@@ -309,7 +309,7 @@ function ProductList() {
                                             <div className="col-md-3 mb-3">
                                                 <div className="prdctListItem">
                                                     <div className="prdctListMedia">
-                                                        <div className="prdctListImg" style={{ backgroundImage: (product.images[0]?(`url("${Rest}/documents/get/${product.images[0].documentId}")`):`url("img/productImg1.jpg")`) }}>
+                                                        <div className="prdctListImg" style={{ backgroundImage: (product.images[0] ? (`url("${Rest}/documents/get/${product.images[0].documentId}")`) : `url("img/productImg1.jpg")`) }}>
                                                             <div className="prdctListOverlay"></div>
                                                         </div>
                                                         <div className="prdctHovrCard">
@@ -317,9 +317,9 @@ function ProductList() {
                                                             <Link to="/"><span className="prdctListIcon"><img src="img/prdctListIcon.svg" /></span></Link>
                                                         </div>
                                                         <div className="prdctHvrBtns">
-                                                            <a 
-                                                                style={{ cursor: 'pointer' }} 
-                                                                className="btnCommon" 
+                                                            <a
+                                                                style={{ cursor: 'pointer' }}
+                                                                className="btnCommon"
                                                                 onClick={() => {
                                                                     dispatch(stateActions.addCartItem(product, 1, product.variants[0]))
                                                                 }}>Add To Cart</a>
@@ -328,7 +328,7 @@ function ProductList() {
                                                     </div>
                                                     <div className="prodctListInfoCol text-center">
                                                         <div className="prdctListTitle">
-                                                            <h4><a onClick={()=>{productDetails(product);}} style={{cursor: "pointer"}}>{product.name}</a></h4>
+                                                            <h4><a onClick={() => { productDetails(product); }} style={{ cursor: "pointer" }}>{product.name}</a></h4>
                                                         </div>
                                                         <div className="rvwRtngPrgrsStars">
                                                             <i className="fa fa-star ylowStar" aria-hidden="true"></i>

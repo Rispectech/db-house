@@ -9,7 +9,6 @@ import { RestAdmin } from "../rest";
 import { useSelector } from "react-redux";
 
 function Category() {
-
     const navigate = useNavigate()
     const location = useLocation()
     let category = location.state?.category
@@ -17,7 +16,7 @@ function Category() {
     const categories = useSelector(s => s.categories)
 
     const linkProductList = (category) => {
-        navigate('/productlist',{ state: {category} })
+        navigate('/productlist', { state: { category } })
     }
 
     return (
@@ -29,7 +28,7 @@ function Category() {
                         <div className="row d-flex align-items-center justify-content-between">
                             <div className="col">
                                 <div className="bredCrumbHdng">
-                                    <h3>{category?(category.name):'Category List'}</h3>
+                                    <h3>{category ? (category.name) : 'Category List'}</h3>
                                 </div>
                             </div>
                             <div className="col-auto">
@@ -54,8 +53,8 @@ function Category() {
                         <ul>
                             {categories?.map(cat => (
                                 <li>
-                                    <div 
-                                        onClick={() => { navigate('/category', { state: cat }) }} 
+                                    <div
+                                        onClick={() => { navigate('/category', { state: cat }) }}
                                         style={{ color: '#333', cursor: 'pointer', background: ((category?.name === cat.category.name) ? '#F2672A' : '#eee') }}>
                                         {cat.category.name}
                                     </div>
@@ -103,13 +102,13 @@ function Category() {
                                         {subcategories?.map((subcategory) => (
                                             <div className="col-sm">
                                                 <div className="categoryListItem">
-                                                    <a style={{cursor: "pointer"}} onClick={()=>{linkProductList(subcategory.category)}}>
+                                                    <a style={{ cursor: "pointer" }} onClick={() => { linkProductList(subcategory.category) }}>
                                                         <div className="categoryListMedia">
                                                             <div className="categoryListImg" style={{ backgroundImage: `url("img/catListImg${Math.ceil(Math.random() * 4)}.jpg")` }}>
                                                                 <div className="categoryListOverlay"></div>
                                                             </div>
                                                             <span className="categoryListBtn">
-                                                                <a style={{cursor: "pointer"}} onClick={()=>{linkProductList(subcategory.category)}} className="btnCommon">View Product</a>
+                                                                <a style={{ cursor: "pointer" }} onClick={() => { linkProductList(subcategory.category) }} className="btnCommon">View Product</a>
                                                             </span>
                                                         </div>
                                                         <div className="categoryListTitle">
