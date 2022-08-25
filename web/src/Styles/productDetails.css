@@ -1,0 +1,10 @@
+.product-variant-btn {
+    font-family: sans-serif;
+    color: black;
+    margin-left: 10px;
+
+}
+
+.product-variant-btn:hover {
+    border: 2px solid coral;
+}
