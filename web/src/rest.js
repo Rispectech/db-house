@@ -7,6 +7,7 @@ export const Rest = "http://localhost:12001/rest";
 const post = async (url, payload, { errorMessage, jwt }) => {
   var appState = store.getState();
   let headers = { "Content-Type": "application/json" };
+  console.log(appState.user);
   if (appState?.user?.jwt) headers["Authorization"] = "Bearer " + appState.user.jwt;
   if (jwt) headers["Authorization"] = "Bearer " + jwt;
   console.log("post", payload, JSON.stringify(payload));
@@ -27,8 +28,8 @@ const post = async (url, payload, { errorMessage, jwt }) => {
 const postImage = (url, payload, { errorMessage, jwt }) => {
   var appState = store.getState();
   let headers = {};
-  if (appState?.user?.jwt) headers["Authorization"] = "Bearer " + appState.user.jwt;
-  if (jwt) headers["Authorization"] = "Bearer " + jwt;
+  // if (appState?.user?.jwt) headers["Authorization"] = "Bearer " + appState.user.jwt;
+  // if (jwt) headers["Authorization"] = "Bearer " + jwt;
   return fetch(Rest + url, {
     method: "post",
     headers,
@@ -270,11 +271,11 @@ export let RestAdmin = {
 };
 
 export let RestMerchant = {
-  async createProduct(product) {
+  async createProduct(product, jwt) {
     return await post(
       "/product/createProduct",
       { product },
-      { errorMessage: "Unable to create product!" }
+      { errorMessage: "Unable to create product!", jwt }
     );
   },
   async getAllBrands() {

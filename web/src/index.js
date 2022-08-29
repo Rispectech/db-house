@@ -20,6 +20,8 @@ export const store = configureStore({
   middleware: [logger],
 });
 
+console.log(store.getState());
+
 ReactDOM.render(
   <Provider store={store}>
     <App></App>
