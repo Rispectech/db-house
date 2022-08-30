@@ -30,7 +30,7 @@ require("jquery-nice-select");
 
 function ProductDetail() {
   let [count, setCount] = useState(1);
-  let [selectedVariant, setSelectedVariant] = useState(1);
+  let [selectedVariant, setSelectedVariant] = useState(0);
   const dispatch = useDispatch();
   const { state } = useLocation();
   const [color, setColor] = useState([]);
@@ -73,7 +73,7 @@ function ProductDetail() {
     getColors();
   }, [product]);
 
-  console.log(product.variants);
+  console.log(product);
 
   return (
     <section className="wrapper">
@@ -121,7 +121,7 @@ function ProductDetail() {
                   >
                     {product.images &&
                       product.images?.map((image, index) => (
-                        <SwiperSlide>
+                        <SwiperSlide key={index}>
                           <div className="prdctDtlSlideItem">
                             <div className="prdctDtlSlideMedia">
                               <div
@@ -161,7 +161,7 @@ function ProductDetail() {
                   >
                     {product.images &&
                       product.images?.map((image, index) => (
-                        <SwiperSlide>
+                        <SwiperSlide key={index}>
                           <div className="prdctThumbSlideMedia">
                             <div
                               className="prdctDtlImgThumb"
@@ -220,6 +220,7 @@ function ProductDetail() {
                           {product.variants &&
                             product.variants?.map((variant, index) => (
                               <button
+                                key={index}
                                 className={
                                   index === selectedVariant ? "btn-active button" : "button"
                                 }

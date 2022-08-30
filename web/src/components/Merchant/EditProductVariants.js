@@ -65,7 +65,7 @@ function MerchantEditProductVariants() {
     newProduct.variantParameters = { ...params };
 
     await RestAdmin.updateProduct(newProduct);
-    navigate("/admin/productlist");
+    navigate("/merchant/productlist");
 
     // let { name, brandId, merchantId, categoryId, subCategoryId, description, variants } = formData;
     // let isError = false;
@@ -195,8 +195,8 @@ function MerchantEditProductVariants() {
                                         </div>
                                       </div>
                                       <div className="row">
-                                        {params.styleList.map((style) => (
-                                          <div className="col-sm-2">
+                                        {params.styleList.map((style, index) => (
+                                          <div className="col-sm-2" key={index}>
                                             <InputGroup className="mb-3">
                                               <Form.Control
                                                 disabled
