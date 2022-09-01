@@ -27,15 +27,13 @@ function ProductList() {
   const [category, setCategory] = useState(currentCategory[0]);
   const [products, setProducts] = useState();
 
-  console.log(category);
+  console.log(products);
 
   useEffect(() => {
     if (category) {
       setLoading(true);
-      console.log(category.category._id);
       RestClient.getProductsByCategoryId(category.category._id)
         .then((res) => {
-          console.log(res);
           setProducts(res.data);
           setLoading(false);
         })
@@ -93,8 +91,8 @@ function ProductList() {
         <div className="container">
           <div className="NavCatInr">
             <ul>
-              {categories.map((cat) => (
-                <li>
+              {categories.map((cat, index) => (
+                <li key={index}>
                   <div
                     style={{
                       color: "#333",
@@ -170,8 +168,8 @@ function ProductList() {
                           <Accordion.Body>
                             <div className="filtrList mb-2">
                               <ul>
-                                {category?.subcategories?.map((subcategory) => (
-                                  <li>
+                                {category?.subcategories?.map((subcategory, key) => (
+                                  <li index={key}>
                                     <a style={{ cursor: "pointer" }}>{subcategory.name}</a>
                                   </li>
                                 ))}
@@ -444,8 +442,8 @@ function ProductList() {
                     )}
 
                     {!loading &&
-                      products?.map((product) => (
-                        <div className="col-md-3 mb-3">
+                      products?.map((product, index) => (
+                        <div className="col-md-3 mb-3" key={index}>
                           <div className="prdctListItem">
                             <div className="prdctListMedia">
                               <div
@@ -514,7 +512,7 @@ function ProductList() {
                                 ></p>
                               </div>
                               <div className="prodctListPrice d-flex justify-content-center">
-                                <div className="price">£{product.variants[0].price}</div>
+                                {/* <div className="price">£{product.variants[1].price}</div> */}
                                 {/* <div className="oferPrice">$65.00</div> 
                                                             <div className="discntPrice">(£100.43 Inc VAT)</div>*/}
                               </div>
