@@ -4,9 +4,10 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import { Strategy as JWTstrategy, ExtractJwt as ExtractJWT } from 'passport-jwt'
 import { collections } from './db.service';
 import { AppConfig } from './config';
-import { EMerchantStatus, IAdmin, IMerchant } from './interfaces';
+import { EMerchantStatus, IAdmin, IMerchant, IClient } from './interfaces';
 import { MerchantService } from './services/merchant.service';
 import { AdminService } from './services/admin.service';
+import { ClientService } from './services/client.service';
 
 const HASHPREFIX: string = `$2b$10$`
 
@@ -106,6 +107,52 @@ class CAuthUtils {
                 }
             }
         ));
+
+        passport.use('clientsignup', new LocalStrategy(
+            { usernameField: 'email', passwordField: 'password' },
+            async (email, password, done) => {
+                try {
+                    let base64Password = password
+                    let plainTextPassword: string = Buffer.from(base64Password, 'base64').toString()
+                    let hashPassword: string = await this.generateHashPassword(plainTextPassword)
+                    let client: IClient = {
+                        _id: null,
+                        email: email,
+                        secret: hashPassword,
+                        createdAt: Date.now(),
+                        isEmailVerified: false,
+                        phoneNumber: "0000000000",
+                        isPhoneNumberVerified: false
+                    }
+                    client = await ClientService.create(client)
+                    return done(null, client)
+                } catch (error) {
+                    done(error);
+                }
+            }
+        ));
+
+
+        passport.use('clientlogin', new LocalStrategy(
+            { usernameField: 'email', passwordField: 'password' },
+            async (email, password, done) => {
+                try {
+                    let base64Password = password
+                    let plainTextPassword: string = Buffer.from(base64Password, 'base64').toString('utf-8')
+                    const client: IClient = (await collections.clients.findOne({ email })) as IClient
+                    if (!client) {
+                        return done(null, null, { message: 'Invalid Email' });
+                    }
+                    if (!this.compareHash(plainTextPassword, client.secret)) {
+                        return done(null, null, { message: 'Invalid Password' });
+                    }
+                    return done(null, client, { message: 'Logged in Successfully' });
+                } catch (error) {
+                    return done(error);
+                }
+            }
+        ));
+
         passport.use(
             new JWTstrategy(
                 {
