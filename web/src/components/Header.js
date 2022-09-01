@@ -16,10 +16,47 @@ function Header() {
    })
    const navigate = useNavigate()
 
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [confirmPassword, setConfirmPassword] = useState("");
    const [signUp, registerShow] = useState(false);
    const [logins, loginModel] = useState(false);
    const [forgot, forgotModel] = useState(false);
    const [reset, resetModal] = useState(false);
+   const [error, setError] = useState();
+   const [checked, setChecked] = useState(true);
+
+   const validateEmail = (email) => {
+      return String(email)
+         .toLowerCase()
+         .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+         );
+   };
+
+   const validatePassword = (password) => {
+      return String(password)
+         .match(
+            /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+         );
+   }
+
+   const handleSignUp = (e) => {
+      e.preventDefault()
+      if (!email || !validateEmail(email)) {
+         setError(`Please enter a valid Email`)
+      } else if (!password || !validatePassword(password)) {
+         setError(`Please enter a valid Password`)
+      } else if (password !== confirmPassword) {
+         setError(`Passwords do not match`)
+      }
+      else {
+         if (checked !== true) {
+            setError(`Please accept ourTerms of use and ourPrivacy policy `)
+         }
+      }
+   }
+
    return (
       <header className="mainHeader wrapper">
          <article className="topBar blueBg">
@@ -69,19 +106,23 @@ function Header() {
                                           <div className="row g-3">
                                              <div className="col-12">
                                                 <label htmlFor="fullNameFld" className="form-label pt-3">Email Address</label>
-                                                <input type="email" className="form-control" id="" placeholder="info@Dbhouz.com" />
+                                                <input type="email" className="form-control" value={email}
+                                                   onChange={(e) => setEmail(e.target.value)} placeholder="info@Dbhouz.com" />
                                              </div>
                                              <div className="col-12">
                                                 <label htmlFor="fullNameFld" className="form-label">Password</label>
-                                                <input type="password" className="form-control" id="" placeholder="Password" />
+                                                <input type="password" className="form-control" value={password}
+                                                   onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                                              </div>
                                              <div className="col-12">
                                                 <label htmlFor="fullNameFld" className="form-label">Confirm Password</label>
-                                                <input type="password" className="form-control" id="" placeholder="Confirm Password" />
+                                                <input type="password" className="form-control" value={confirmPassword}
+                                                   onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm Password" />
                                              </div>
                                              <div className="col-12">
                                                 <div className="form-check">
-                                                   <input type="checkbox" className="form-check-input" id="acceptCheck" />
+                                                   <input type="checkbox" defaultChecked={checked} onChange={() => setChecked(!checked)}
+                                                      className="form-check-input" id="acceptCheck" />
                                                    <label className="form-check-label" htmlFor="acceptCheck">
                                                       I accept our
                                                       <Link to="/termconditions">
@@ -91,11 +132,20 @@ function Header() {
                                                    </label>
                                                 </div>
                                              </div>
+                                             {(error) && (
+                                                <p className="text-danger">* {error}</p>
+                                             )}
                                              <div className="col-12">
                                                 <div className="row d-flex align-items-center">
-                                                   <div className="col"><button type="submit" className="btn btnCommon btnRadiusNone ">Register </button></div>
+                                                   <div className="col">
+                                                      <button type="submit" onClick={handleSignUp} className="btn btnCommon btnRadiusNone ">
+                                                         Register
+                                                      </button>
+                                                   </div>
                                                    <div className="col-auto pull-right">
-                                                      <Link to="/" onClick={() => { registerShow(false); loginModel(true); return }}>Back To Login</Link>
+                                                      <Link to="/" onClick={() => { registerShow(false); loginModel(true); return }}>
+                                                         Back To Login
+                                                      </Link>
                                                    </div>
                                                 </div>
                                              </div>
