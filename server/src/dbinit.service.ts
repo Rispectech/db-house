@@ -7,6 +7,7 @@ import { UnitService } from "./services/unit.service";
 import { ColorService } from "./services/color.service";
 import { AdminService } from "./services/admin.service";
 import { AuthUtils } from "./auth.utils";
+//import { CartService } from "./services/cart.service";
 
 export async function dbInit(db: mongoDB.Db) {
     await db.dropDatabase()
@@ -20,6 +21,7 @@ export async function dbInit(db: mongoDB.Db) {
     await db.createCollection(AppConfig.mongoCollections.documents).catch(e => console.log(e))
     await db.createCollection(AppConfig.mongoCollections.colors).catch(e => console.log(e))
     await db.createCollection(AppConfig.mongoCollections.units).catch(e => console.log(e))
+    //await db.createCollection(AppConfig.mongoCollections.carts).catch(e => console.log(e))
 }
 export async function dataInit(db) {
 

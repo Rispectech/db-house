@@ -162,18 +162,13 @@ export interface IUnit {
     priority: number
 }
 
-export interface ICart {
-    _id: ObjectId
-    items:{
-        productId?:ObjectId,
-        ref:'product',
-        quantity:Number,
-
-    },
-    totalPrice:{
-      type:Number
-    },
-  totalItems:{
-  type:Number
-  }
-}
+// export interface ICart {
+//     _id: ObjectId 
+//   product:ObjectId,
+    //  name:String,
+    //  image:String,
+//   quantity:number,
+//   totalPrice:number,
+//   totalItems:number,
+//   createdAt:number
+// }

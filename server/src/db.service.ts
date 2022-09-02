@@ -18,6 +18,7 @@ export const collections: {
     documents?: mongoDB.Collection
     colors?: mongoDB.Collection
     units?: mongoDB.Collection
+    //carts?: mongoDB.Collection
 } = {}
 
 /**
@@ -64,6 +65,7 @@ export async function connectToDatabase() {
     collections.documents = db.collection(AppConfig.mongoCollections.documents);
     collections.colors = db.collection(AppConfig.mongoCollections.colors);
     collections.units = db.collection(AppConfig.mongoCollections.units);
+    //collections.carts = db.collection(AppConfig.mongoCollections.carts);
     LOG.info(`Successfully connected to database`);
     try {
         await applyMongoValidations(db)
@@ -392,4 +394,24 @@ let applyMongoValidations = async (db: mongoDB.Db) => {
             }
         }
     });
+
+    // LOG.info(`Validating collection ${AppConfig.mongoCollections.carts}`)
+    // await db.command({
+    //     "collMod": AppConfig.mongoCollections.carts,
+    //     "validator": {
+    //         $jsonSchema: {
+    //             bsonType: "object",
+    //             required: ["quantity","totalPrice","totalItem","createdAt"],
+    //             additionalProperties: false,
+    //             properties: {
+    //                 _id: {},
+    //                 productId: { bsonType: "string" },
+    //                 quantity: { bsonType: "number" },
+    //                 totalPrice: { bsonType: "number" },
+    //                 totalItem: { bsonType: "number" },
+    //                 createdAt: { bsonType: "number" }
+    //             }
+    //         }
+    //     }
+    // });
 }
