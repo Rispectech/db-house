@@ -55,7 +55,7 @@ function Category() {
                             {categories?.map(cat => (
                                 <li>
                                     <div 
-                                        onClick={() => { navigate('/category', { state: cat }) }} 
+                                        onClick={() => { navigate('/productlist', { state: cat }) }} 
                                         style={{ color: '#333', cursor: 'pointer', background: ((category?.name === cat.category.name) ? '#F2672A' : '#eee') }}>
                                         {cat.category.name}
                                     </div>

@@ -19,7 +19,7 @@ function MaterialCat() {
         <Row className="g-4">
             <Col lg md={6}>
               <MaterialSelection
-                Link="/products"
+                Link="/productlist"
                 Image={Material1}
                 Heading="Imported Marble"
                 alt="materialImg"             
@@ -27,7 +27,7 @@ function MaterialCat() {
             </Col>
             <Col lg md={6}>
               <MaterialSelection
-                  Link="/products"
+                  Link="/productlist"
                   Image={Material2}
                   Heading="Flawless White & Cat's Eye"
                   className="active"
@@ -35,7 +35,7 @@ function MaterialCat() {
             </Col>
             <Col  >
                 <MaterialSelection
-                  Link="/products"
+                  Link="/productlist"
                   Image={Material3}
                   alt="Image"
                   Heading="Ninety Degree Stone"
