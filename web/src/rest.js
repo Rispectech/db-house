@@ -80,6 +80,16 @@ const $delete = (url, { errorMessage, jwt }) => {
     .then((res) => res.json());
 };
 
+export let RestUser = {
+  async login(email, password) {
+    return await post(
+      `/auth/adminlogin`,
+      { email, password },
+      { errorMessage: "Login Failed!" }
+    );
+  },
+};
+
 export let RestAdmin = {
   async login(email, password) {
     return await post(
