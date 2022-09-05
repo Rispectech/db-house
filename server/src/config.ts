@@ -29,7 +29,7 @@ class AppConfigClass {
         documents: string
         colors: string
         units: string
-         //carts: string
+        carts: string
     }
 }
 
@@ -59,7 +59,7 @@ let AppConfigObject: AppConfigClass = {
         documents: process.env.COLLECTION_DOCUMENTS,
         colors: process.env.COLLECTION_COLORS,
         units: process.env.COLLECTION_UNITS,
-       // carts: process.env.COLLECTION_CARTS,
+        carts: process.env.COLLECTION_CARTS,
     }
 }
 

@@ -30,7 +30,8 @@ authRouter.post('/merchantlogin', async (req, res, next) => {
             if (err || !user) {
                 return next(info?.message ? info.message : 'An error occurred.');
             }
-            (req as any).login(user, { session: false }, async (error) => {
+            //let query: any = {status: "ACTIVE"}
+            (req as any).login(user , { session: false }, async (error) => {
                 if (error) return next(error);
                 const body = { _id: user._id, email: user.email, type: "merchant" };
                 const token = jwt.sign({ user: body }, AppConfig.jwtSalt);
