@@ -1,4 +1,4 @@
-import { Double, InsertOneResult, ObjectId, UpdateResult } from "mongodb";
+import { Admin, Double, InsertOneResult, ObjectId, UpdateResult } from "mongodb";
 import { collections } from "../db.service";
 import { ECommisionType, EMerchantStatus, IMerchant } from "../interfaces";
 
@@ -13,10 +13,17 @@ class MerchantServiceClass {
         return (await collections.merchants.findOne({ email })) as IMerchant;
     }
 
-    async getAll(activeOnly: boolean): Promise<IMerchant[]> {
-        let query: any = {}
-        if(activeOnly) query.status = EMerchantStatus.Active
+    // async update (merchantId: string | ObjectId): Promise<boolean>{
+    //         const query = { _id: new ObjectId(merchantId), EMerchantStatus:"Active"};
+    //         return await collections.merchants.updateMany(query, EMerchantStatus ) 
+    //     }
+    
+    
+    async getAll( EMerchantStatus): Promise<IMerchant[]> {
+        console.log(EMerchantStatus)
+        let query: any = {status: "ACTIVE"}
         return (await collections.merchants.find(query).sort({ createdAt: -1 }).toArray()) as IMerchant[];
+        
     }
 
     async create(newMerchant: IMerchant): Promise<IMerchant> {

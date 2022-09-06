@@ -161,3 +161,14 @@ export interface IUnit {
     createdAt: number
     priority: number
 }
+
+export interface ICart {
+    _id: ObjectId 
+  product?:ObjectId,
+     name:String,
+     image?:String,
+  quantity:number,
+  totalPrice:number,
+  totalItems:number,
+  createdAt:number
+}

@@ -25,6 +25,8 @@ async function connect() {
 
     let client
     let db
+    console.log(process.env.DB_CONN_STRING)
+    console.log(process.env.DB_NAME)
 
     try {
         client = new mongoDB.MongoClient(process.env.DB_CONN_STRING);

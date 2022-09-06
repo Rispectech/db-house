@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express'
-import { IDocument, IMerchant, IProduct } from '../interfaces'
+import { EMerchantStatus, IDocument, IMerchant, IProduct } from '../interfaces'
 import { ObjectId } from "mongodb";
 import { LOG } from '../logger';
 import { MerchantService } from '../services/merchant.service';
@@ -53,12 +53,21 @@ merchantRouter.post('/newMerchantImages', uploadImages.array('images'), async (r
 
 merchantRouter.get('/admin/getAll', async (req: Request, res: Response) => {
     try {
-        res.status(200).json({ merchants: await MerchantService.getAll(false) });
+        res.status(200).json({ merchants: await MerchantService.getAll(EMerchantStatus) });
     } catch (error: any) {
         LOG.error(error)
         res.status(500).json({ error: error.message });
     }
 })
+
+// merchantRouter.post('/admin/EnableMerchant', async (req: Request, res: Response) => {
+//     try {
+//         res.status(200).json({ merchants: await MerchantService.update(false) });
+//     } catch (error: any) {
+//         LOG.error(error)
+//         res.status(500).json({ error: error.message });
+//     }
+// })
 
 merchantRouter.get('/getOne/:merchantId', async (req: Request, res: Response) => {
     const merchantId: string = req?.params?.merchantId;
