@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation, useParams } from "react-router-dom";
 import { Accordion } from "react-bootstrap";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -14,6 +14,7 @@ window.jQuery = window.$ = $;
 require("jquery-nice-select");
 
 function ProductList() {
+  const index = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,6 +55,7 @@ function ProductList() {
     $(selectRef3.current).niceSelect();
   }, []);
 
+  console.log(index);
   return (
     <section className="wrapper">
       <Header />

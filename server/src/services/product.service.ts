@@ -71,6 +71,8 @@ class ProductServiceClass {
         return (result.modifiedCount > 0)
     }
 
+     //how to add products in mongodb database?
+
     async delete(productId: string | ObjectId): Promise<boolean> {
         const query = { _id: new ObjectId(productId) };
         const result = await collections.products.deleteOne(query);

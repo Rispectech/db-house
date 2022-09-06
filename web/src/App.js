@@ -180,6 +180,7 @@ export function App() {
         <Route path="/" element={<Home />} />
         <Route path="category" element={<Category />} />
         <Route path="productlist" element={<ProductList />} />
+        <Route path="productlist/:id" element={<ProductList />} />
         <Route path="productdetail" element={<ProductDetail />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="cart" element={<Cart />} />
