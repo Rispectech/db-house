@@ -72,7 +72,6 @@ function Category() {
               ))}
             </ul>
             {/*<ul>
-                    
                         <li>
                         <NavLink to="/productlist" className="active">Stone Blocks</NavLink>
                         </li>
