@@ -7,7 +7,7 @@ import { UnitService } from "./services/unit.service";
 import { ColorService } from "./services/color.service";
 import { AdminService } from "./services/admin.service";
 import { AuthUtils } from "./auth.utils";
-//import { CartService } from "./services/cart.service";
+import { CartService } from "./services/cart.service";
 
 export async function dbInit(db: mongoDB.Db) {
     await db.dropDatabase()

@@ -6,6 +6,7 @@ class MerchantServiceClass {
 
     async get(merchantId: string | ObjectId): Promise<IMerchant> {
         const query = { _id: new ObjectId(merchantId) };
+        console.log(query)  
         return (await collections.merchants.findOne(query)) as IMerchant;
     }
 
@@ -13,10 +14,12 @@ class MerchantServiceClass {
         return (await collections.merchants.findOne({ email })) as IMerchant;
     }
 
-    // async update (merchantId: string | ObjectId): Promise<boolean>{
-    //         const query = { _id: new ObjectId(merchantId), EMerchantStatus:"Active"};
-    //         return await collections.merchants.updateMany(query, EMerchantStatus ) 
-    //     }
+    async update1 (merchantId: string | ObjectId): Promise<Boolean>{
+            const query = { _id: new ObjectId(merchantId)};
+            const result1: UpdateResult = await collections.merchants.updateOne(query, {$set: {status: EMerchantStatus.Active}});
+            console.log(result1)
+            return (result1.modifiedCount > 0)
+        }
     
        //  await collections.merchants.updateOne({_id: req.body.id}, {$set: {status: "Active"}})
     async getAll( EMerchantStatus): Promise<IMerchant[]> {
@@ -48,7 +51,8 @@ class MerchantServiceClass {
         const query = { _id: new ObjectId(merchant._id) };
         delete merchant._id;
         merchant = this.sanitize(merchant)
-        let result: UpdateResult = await collections.merchants.updateOne(query, { $set: merchant, status:"ACTIVE" });
+        let result: UpdateResult = await collections.merchants.updateOne(query,  { $set: {merchant, status:"INACTIVE"} });
+        console.log(result)
         return (result.modifiedCount > 0)
         
     } //  await collections.merchants.updateOne({_id: req.body.id}, {$set: {status: "Active"}})

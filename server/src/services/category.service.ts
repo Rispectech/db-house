@@ -39,6 +39,7 @@ class CategoryServiceClass {
         newCategory.createdAt = Date.now()
         newCategory = this.sanitizeCat(newCategory)
         const result: InsertOneResult<ICategory> = await collections.categories.insertOne(newCategory);
+        console.log(result)
         newCategory._id = result.insertedId
         return newCategory
     }
