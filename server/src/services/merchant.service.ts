@@ -18,12 +18,11 @@ class MerchantServiceClass {
     //         return await collections.merchants.updateMany(query, EMerchantStatus ) 
     //     }
     
-    
+       //  await collections.merchants.updateOne({_id: req.body.id}, {$set: {status: "Active"}})
     async getAll( EMerchantStatus): Promise<IMerchant[]> {
         console.log(EMerchantStatus)
         let query: any = {status: "ACTIVE"}
-        return (await collections.merchants.find(query).sort({ createdAt: -1 }).toArray()) as IMerchant[];
-        
+        return (await collections.merchants.find(query).sort({ createdAt: -1 }).toArray()) as IMerchant[];    
     }
 
     async create(newMerchant: IMerchant): Promise<IMerchant> {
@@ -44,14 +43,15 @@ class MerchantServiceClass {
         merchant = { ...merchant }
         const existingMerchant: IMerchant = await this.getByEmail(merchant.email)
         if (existingMerchant && existingMerchant._id.toString() !== merchant._id.toString()) {
-            throw new Error(`Merchant with this email already exists`)
+            throw new Error(`Merchant with this email not exists`)
         }
         const query = { _id: new ObjectId(merchant._id) };
         delete merchant._id;
         merchant = this.sanitize(merchant)
-        let result: UpdateResult = await collections.merchants.updateOne(query, { $set: merchant });
+        let result: UpdateResult = await collections.merchants.updateOne(query, { $set: merchant, status:"ACTIVE" });
         return (result.modifiedCount > 0)
-    }
+        
+    } //  await collections.merchants.updateOne({_id: req.body.id}, {$set: {status: "Active"}})
 
     async delete(merchantId: string | ObjectId): Promise<boolean> {
         const query = { _id: new ObjectId(merchantId) };

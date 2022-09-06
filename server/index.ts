@@ -16,7 +16,7 @@ import { productRouter } from "./src/routes/product.router";
 import { ACCESSLOG } from "./src/access.logger";
 import fs from "fs-extra";
 import { miscRouter } from "./src/routes/misc.router";
-import { cartRouter } from "./src/routes/cart.router";
+//import { cartRouter } from "./src/routes/cart.router";
 
 dotenv.config();
 
