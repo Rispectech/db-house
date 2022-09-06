@@ -80,6 +80,7 @@ authRouter.post('/clientsignup',
         try {
             let client: IClient  = (req as any).user
             console.log((req as any).user)
+            console.log(req);
             const body = { _id: client._id, email: client.email, type: "client" };
             const token = jwt.sign({ user: body }, AppConfig.jwtSalt); 
             return res.json({client, token})
@@ -110,7 +111,7 @@ authRouter.post('/clientlogin', async (req, res, next) => {
 
 
 authRouter.post('/verifyCJwt', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
-    if (req.user && (req.user as any)._id) {
+    if (req.user && (req.user as any)._id ) {
         const client: IClient = await ClientService.get((req.user as any)._id)
         if (client) {
             res.status(200).json({ client })

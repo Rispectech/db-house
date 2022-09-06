@@ -39,7 +39,7 @@ merchantRouter.post('/newMerchantImages', uploadImages.array('images'), async (r
             let priority: number = 1
             merchant.identification = newDocumentIds.map(i => ({
                 documentId: i,
-                approvedByAdmin: false,
+                approvedByAdmin: true,
                 priority: priority++
             }))
             await MerchantService.update(merchant)
@@ -53,7 +53,7 @@ merchantRouter.post('/newMerchantImages', uploadImages.array('images'), async (r
 
 merchantRouter.get('/admin/getAll', async (req: Request, res: Response) => {
     try {
-        res.status(200).json({ merchants: await MerchantService.getAll(EMerchantStatus) });
+        res.status(200).json({ merchants: await MerchantService.getAll(true) });
     } catch (error: any) {
         LOG.error(error)
         res.status(500).json({ error: error.message });
