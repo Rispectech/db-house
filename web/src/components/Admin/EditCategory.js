@@ -42,6 +42,7 @@ function EditCategory(props) {
         $(selectRef3.current).niceSelect();
     }, []);
     const [noOfRows, setNoOfRows] = useState(1);
+    console.log('category', category)
 
     const initialFormData = {
         name: category.name,

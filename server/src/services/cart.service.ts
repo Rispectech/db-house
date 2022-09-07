@@ -30,7 +30,7 @@ class CartServiceClass {
         newCart.quantity = await this.getTotalCount() + 1
         newCart.createdAt = Date.now()
         const result: InsertOneResult<ICart> = await collections.carts.insertOne(newCart);
-        newCart.product = result.insertedId
+        newCart._id = result.insertedId
         return newCart
     }
 
