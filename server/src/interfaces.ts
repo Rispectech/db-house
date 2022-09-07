@@ -164,7 +164,7 @@ export interface IUnit {
 
 export interface ICart {
     _id: ObjectId 
-  product?:ObjectId,
+  product?:String,
      name:String,
      image?:String,
   quantity:number,
@@ -172,3 +172,4 @@ export interface ICart {
   totalItems:number,
   createdAt:number
 }
+//MongoServerError: ns does not exist?
