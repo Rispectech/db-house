@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/LogoLg.svg";
 import logout from "../../assets/images/logout.png";
 import { Button, Modal, Dropdown, Offcanvas, Accordion } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import {stateActions} from "../../redux/stateActions";
 function AdSidebar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
   <div className="leftsidemenu">
     <div className="sidebar-wrapper">
@@ -234,10 +238,15 @@ function AdSidebar() {
           </Accordion>
         </div>
       </div>
-      <div className="logoutSideBar">
-        <Link to="/admin/login">
-          <span><img src={logout} alt="" height="18" /></span>Logout
-        </Link>
+      <div className="logoutSideBar"
+      onClick={()=>{
+        dispatch(stateActions.logout())
+        navigate('/admin/login')
+      }}>
+          <span>
+            <img src={logout} alt="" height="18" />
+          </span>
+          Logout
       </div>
     </div>
   </div>
