@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Button, Modal, Dropdown, Container, Row, Col, Offcanvas } from "react-bootstrap";
 import RightArrow from "./../img/rightArrowIcon.svg";
 import { useSelector } from "react-redux";
-import { Rest, RestAdmin } from "../rest";
+import { Rest, RestAdmin, RestUser } from "../rest";
 import { useDispatch } from "react-redux";
 import { stateActions } from "../redux/stateActions";
 
@@ -56,12 +56,29 @@ function Header() {
         setError(`Please accept ourTerms of use and ourPrivacy policy `);
       }
     }
-    RestAdmin.login(email, password)
-      .then(({ admin, token }) => {
-        dispatch(stateActions.setUser("admin", admin, token));
-        navigate("/admin/dashboard");
+    RestUser.userSignup(email, password)
+      .then((res) => {
+        console.log(`Got 1`);
+        console.log(res);
+        RestUser.userLogin(email, password)
+          .then(({ user, token }) => {
+            console.log(`Got 2`);
+            user.email = email;
+            RestUser.updateUser(user, token)
+              .then((res) => {
+                console.log(`Got 3`);
+                console.log(res);
+                dispatch(stateActions.setUser("user", user, token));
+                //navigate(`/merchant/dashboard`)
+              })
+              .catch((e) => setError(e.message));
+          })
+          .catch((e) => setError(e.message));
       })
-      .catch((e) => setFormError(e.message));
+      .catch((e) => {
+        console.error(e);
+        setError(`Registration Failed`);
+      });
   };
 
   return (
