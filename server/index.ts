@@ -16,6 +16,7 @@ import { productRouter } from "./src/routes/product.router";
 import { ACCESSLOG } from "./src/access.logger";
 import fs from "fs-extra";
 import { miscRouter } from "./src/routes/misc.router";
+import { userRouter } from "./src/routes/user.router";
 import { cartRouter } from "./src/routes/cart.router";
 
 dotenv.config();
@@ -66,6 +67,7 @@ initDirectories()
     appRouter.use("/carts", cartRouter);
 
     appRouter.use("/misc", passport.authenticate("jwt", { session: false }), miscRouter);
+    appRouter.use("/user", userRouter);
 
     app.use(`/rest`, appRouter);
 

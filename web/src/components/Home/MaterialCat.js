@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
-import MainHeading from "./../MainHeading";
-import MaterialSelection from "./../MaterialSelection";
-import Material1 from "./../../img/materialImg1.png";
-import Material2 from "./../../img/materialImg2.png";
-import Material3 from "./../../img/materialImg3.png";
+import MainHeading from "../MainHeading";
+import MaterialSelection from "../MaterialSelection";
+import Material1 from "../../img/materialImg1.png";
+import Material2 from "../../img/materialImg2.png";
+import Material3 from "../../img/materialImg3.png";
 function MaterialCat() {
   return (
     <article className="mterlSlectnBlk wrapper py-40">

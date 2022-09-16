@@ -58,15 +58,16 @@ function ProductDetail() {
   };
 
   const getSingleColors = (id) => {
-    if (color.colors) {
+    if (color && color.colors) {
       const _color = color.colors.filter((item) => item._id === id);
       return _color[0].name;
-    }
+    } else return "green";
   };
 
   const getDimension = (obj) => {
-    console.log(obj);
-    return `${obj.dimensions.height} x ${obj.dimensions.width} x ${obj.dimensions.thickness} inches`;
+    if (obj)
+      return `${obj.dimensions.height} x ${obj.dimensions.width} x ${obj.dimensions.thickness} inches`;
+    else return "0 x 0 x 0 inches";
   };
 
   useEffect(() => {
@@ -190,7 +191,11 @@ function ProductDetail() {
                       <span>11 reviews</span>
                     </div>
                     <div className="prodctDtlPriceLrge d-flex align-items-center">
-                      <div className="price">{`$ ${product.variants[selectedVariant].price}`}</div>
+                      <div className="price">{`$ ${
+                        product.variants[selectedVariant]
+                          ? product.variants[selectedVariant].price
+                          : 0
+                      }`}</div>
                       <div className="prcentOff px-3">$100.43 Inc VAT</div>
                     </div>
                     <div className="gst">$38.04 per m²</div>
@@ -243,7 +248,11 @@ function ProductDetail() {
                           <h5>Color :</h5>
                         </div>
                       </div>
-                      {getSingleColors(product.variants[selectedVariant].colorId)}
+                      {getSingleColors(
+                        product.variants[selectedVariant]
+                          ? product.variants[selectedVariant].colorId
+                          : "green"
+                      )}
                     </div>
 
                     <div className="row align-items-center pt-2 label-padding">
@@ -261,7 +270,9 @@ function ProductDetail() {
                           <h5>Style :</h5>
                         </div>
                       </div>
-                      {product.variants[selectedVariant].style}
+                      {product.variants[selectedVariant]
+                        ? product.variants[selectedVariant].style
+                        : "T-shirt"}
                     </div>
 
                     <div className="row align-items-center pt-2">
@@ -385,15 +396,27 @@ function ProductDetail() {
                     <tbody>
                       <tr>
                         <td className="tdBg w-25">Size</td>
-                        <td>{product.variants[selectedVariant].size}</td>
+                        <td>
+                          {product.variants[selectedVariant]
+                            ? product.variants[selectedVariant].size
+                            : 15}
+                        </td>
                       </tr>
                       <tr>
                         <td className="tdBg w-25">Dimension</td>
-                        <td>{product.variants[selectedVariant].dimension}</td>
+                        <td>
+                          {product.variants[selectedVariant]
+                            ? product.variants[selectedVariant].dimension
+                            : "0 x 0 x 0 inches"}
+                        </td>
                       </tr>
                       <tr>
                         <td className="tdBg w-25">Color</td>
-                        <td>{product.variants[selectedVariant].color}</td>
+                        <td>
+                          {product.variants[selectedVariant]
+                            ? product.variants[selectedVariant].color
+                            : "green"}
+                        </td>
                       </tr>
                       <tr>
                         <td className="tdBg w-25">Width</td>

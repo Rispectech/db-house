@@ -143,6 +143,24 @@ export function App() {
             resolve();
           })
           .catch(reject);
+      } else if (utype === "user") {
+        let headers = { "Content-Type": "application/json", Authorization: "Bearer " + jwt };
+        fetch(Rest + "/auth/verifyUJwt", { method: "post", headers })
+          .then((res) => {
+            if (res.status === 200) {
+              return res;
+            } else throw new Error(`Invalid JWT`);
+          })
+          .then((res) => {
+            return res.json();
+          })
+          .then((res) => {
+            if (res && res.merchant) {
+              dispatch(stateActions.setUser("user", res.merchant, jwt));
+            }
+            resolve();
+          })
+          .catch(reject);
       }
     });
   };
