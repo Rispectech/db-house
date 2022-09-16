@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Button, Modal, Dropdown, Container, Row, Col, Offcanvas } from "react-bootstrap";
-import RightArrow from "./../img/rightArrowIcon.svg";
-import { useSelector } from "react-redux";
+import RightArrow from "../img/rightArrowIcon.svg";
 import { Rest, RestAdmin, RestUser } from "../rest";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { stateActions } from "../redux/stateActions";
+
+import SetingUser from "../assets/images/settingIcons/userIcon.svg";
+import Edit from "../assets/images/settingIcons/editIcon.svg";
+import ChangePassword from "../assets/images/settingIcons/changePaswrd.svg";
+import SetingLogout from "../assets/images/settingIcons/logout.svg";
+import "../css/header.css";
 
 function Header() {
   const categories = useSelector((s) => s.categories);
@@ -27,6 +32,9 @@ function Header() {
   const [error, setError] = useState();
   const [checked, setChecked] = useState(true);
   const [formError, setFormError] = useState();
+  const user = useSelector((s) => s.user);
+
+  console.log(user.user);
 
   const validateEmail = (email) => {
     return String(email)
@@ -69,11 +77,12 @@ function Header() {
                 console.log(`Got 3`);
                 console.log(res);
                 dispatch(stateActions.setUser("user", user, token));
-                //navigate(`/merchant/dashboard`)
+                navigate(`/`);
               })
               .catch((e) => setError(e.message));
           })
           .catch((e) => setError(e.message));
+        registerShow(false);
       })
       .catch((e) => {
         console.error(e);
@@ -100,15 +109,66 @@ function Header() {
             </Col>
             <Col className="col-md-auto">
               <div className="tpBarRightCol d-flex">
-                <div className="loginSignUpRow textWhite">
-                  <Link to="/" onClick={() => loginModel(true)}>
-                    Login
-                  </Link>
-                  /
-                  <Link to="/" onClick={() => registerShow(true)}>
-                    Register
-                  </Link>
-                </div>
+                {user.jwt ? (
+                  <div>
+                    <Dropdown className="header-fix">
+                      <Dropdown.Toggle className="notificatnCol" id="dropdown-basic">
+                        <div className="userContnt d-flex">
+                          <div>
+                            <p>Welcome</p>
+                            {Boolean(user?.user?.firstName) && (
+                              <h5>{user?.user?.firstName}</h5>
+                            )}
+                            {!Boolean(user?.user?.firstName) && <h5>User</h5>}
+                          </div>
+                        </div>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="/user/myprofile">
+                          <span>
+                            <img src={SetingUser} alt="" height="13" />
+                          </span>{" "}
+                          View Profile
+                        </Dropdown.Item>
+                        <Dropdown.Item href="/user/editprofile">
+                          <span>
+                            <img src={Edit} alt="" height="13" />
+                          </span>{" "}
+                          Edit Profile
+                        </Dropdown.Item>
+                        <Dropdown.Item href="/user/password">
+                          <span>
+                            <img src={ChangePassword} alt="" height="13" />
+                          </span>{" "}
+                          Change Password
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <div
+                            onClick={() => {
+                              dispatch(stateActions.logout());
+                              navigate("/");
+                            }}
+                          >
+                            <span>
+                              <img src={SetingLogout} alt="" height="13" />
+                            </span>{" "}
+                            Logout
+                          </div>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+                ) : (
+                  <div className="loginSignUpRow textWhite">
+                    <Link to="/" onClick={() => loginModel(true)}>
+                      Login
+                    </Link>
+                    /
+                    <Link to="/" onClick={() => registerShow(true)}>
+                      Register
+                    </Link>
+                  </div>
+                )}
                 {/* Register-Modal */}
                 <Modal
                   size="lg"

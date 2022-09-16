@@ -5,6 +5,7 @@ import { IAdmin, IMerchant, IUser } from "../interfaces";
 import { AppConfig } from "../config";
 import { MerchantService } from "../services/merchant.service";
 import { AdminService } from "../services/admin.service";
+import { userService } from "../services/user.service";
 
 const authRouter: Router = express.Router();
 authRouter.use(express.json());
@@ -105,6 +106,39 @@ authRouter.post(
     const body = { _id: user._id, email: user.email, type: "user" };
     const token = jwt.sign({ user: body }, AppConfig.jwtSalt);
     return res.json({ user, token });
+  }
+);
+
+authRouter.post("/userlogin", async (req, res, next) => {
+  passport.authenticate("userlogin", async (err, user, info) => {
+    try {
+      if (err || !user) {
+        return next(info?.message ? info.message : "An error occurred.");
+      }
+      (req as any).login(user, { session: false }, async (error) => {
+        if (error) return next(error);
+        const body = { _id: user._id, email: user.email, type: "user" };
+        const token = jwt.sign({ user: body }, AppConfig.jwtSalt);
+        return res.json({ user, token });
+      });
+    } catch (error) {
+      return next(error);
+    }
+  })(req, res, next);
+});
+
+authRouter.post(
+  "/verifyUJwt",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res, next) => {
+    console.log(req.user);
+    if (req.user && (req.user as any)._id) {
+      const merchant: IUser = await userService.get((req.user as any)._id);
+      console.log(merchant);
+      if (merchant) {
+        res.status(200).json({ merchant });
+      } else res.status(500).json({ error: `Failed to fetch user` });
+    } else res.status(500).json({ error: `Failed to fetch user` });
   }
 );
 

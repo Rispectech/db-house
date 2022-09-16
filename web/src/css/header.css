@@ -1,0 +1,19 @@
+.header-fix{
+    background-color:transparent !important;
+    color:white !important;   
+    padding: 0;
+}
+
+.header-fix button {
+    background-color: transparent !important;
+    color: white !important;
+    border-color: ;
+}
+
+.header-fix button p{
+    color: white !important;
+}
+
+.header-fix button h5{
+    color:white !important;
+}

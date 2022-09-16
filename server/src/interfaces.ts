@@ -44,7 +44,6 @@ export interface IUser {
   email: string;
   isEmailVerified: boolean;
   secret: string;
-  status: EMerchantStatus;
   identification?: {
     documentId: ObjectId;
     approvedByAdmin: boolean;

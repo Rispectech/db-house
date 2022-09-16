@@ -83,7 +83,7 @@ const $delete = (url, { errorMessage, jwt }) => {
 export let RestUser = {
   async userLogin(email, password) {
     return await post(
-      `/auth/userLogin`,
+      `/auth/userlogin`,
       { email, password },
       { errorMessage: "Login Failed!" }
     );
@@ -97,8 +97,8 @@ export let RestUser = {
     );
   },
 
-  async updateUser(merchant) {
-    return await post("/user/updateOne", { merchant }, "Unable to update Merchant Details!");
+  async updateUser(user) {
+    return await post("/user/updateOne", { user }, "Unable to update Merchant Details!");
   },
 };
 
