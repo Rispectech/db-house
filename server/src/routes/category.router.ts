@@ -99,9 +99,9 @@ categoryRouter.post(
 
 categoryRouter.post("/createCategory", async (req: Request, res: Response) => {
   try {
-    let category: ICategory = req.body.category;
+    let category: ICategory = req.body.name;
     category = await CategoryService.createCategory(category);
-    res.status(200).json({ category });
+    res.status(200).json({ category:category });
   } catch (error: any) {
     LOG.error(error);
     res.status(500).json({ error: error.message });

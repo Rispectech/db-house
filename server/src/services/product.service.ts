@@ -71,6 +71,10 @@ class ProductServiceClass {
         return (result.modifiedCount > 0)
     }
 
+     //how to add merchant by admin?
+
+
+
     async delete(productId: string | ObjectId): Promise<boolean> {
         const query = { _id: new ObjectId(productId) };
         const result = await collections.products.deleteOne(query);
